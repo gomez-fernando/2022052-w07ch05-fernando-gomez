@@ -4,6 +4,7 @@ import cors from 'cors';
 // import path from 'path'
 
 import homeRouter from './routers/home.router.js';
+import { robotRouter } from './routers/robot.router.js';
 // import { taskRouter } from './router/task.js';
 // import { notesRouter } from './router/notes.js';
 // import { bookRouter } from './router/books.js';
@@ -20,18 +21,8 @@ export interface ExtraRequest extends Request {
     calculo: number;
 }
 
-app.use((req, res, next) => {
-    req;
-    res;
-    console.log('Soy un middlewares');
-    (req as ExtraRequest).calculo = 47_638;
-    next();
-});
-
 app.use('/', homeRouter);
-// app.use('/task', taskRouter);
-// app.use('/notes', notesRouter);
-// app.use('/books', bookRouter);
+app.use('/robot', robotRouter);
 
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
     req;
