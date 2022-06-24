@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "tsc --watch",
     "start:build": "cross-env PORT=3400 nodemon ./dist/index.js",
