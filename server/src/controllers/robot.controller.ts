@@ -21,10 +21,9 @@ export class RobotController<T> {
         try {
             const result = await this.model.findById(req.params.id);
             if(result === null){
-                resp.status(400);
+                resp.status(404);
                 resp.end('No object found')
             }
-            resp.status(201);
             resp.end(JSON.stringify(result))
             
         } catch (error) {

@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { RobotController } from './robot.controller';
 
-describe('Given a instantiated controller DataController', () => {
+
+describe('Given the RobotController', () => {
     let req: Partial<Request>;
     let resp: Partial<Response>;
     let next: Partial<NextFunction> = jest.fn();
@@ -14,11 +15,12 @@ describe('Given a instantiated controller DataController', () => {
         findByIdAndUpdate: jest.fn(),
         findByIdAndDelete: jest.fn(),
     };
-    let controller = new RobotController(mockModel as unknown as mongoose.Model<{}>);
+    let robotController = new RobotController(mockModel as unknown as mongoose.Model<{}>);
 
     beforeEach(() => {
         req = {
             params: { id: '1' },
+            body: { name: 'robot 1' }
         };
         resp = {
             setHeader: jest.fn(),
@@ -27,43 +29,44 @@ describe('Given a instantiated controller DataController', () => {
         };
     });
     describe('When method getAll is called', () => {
-        test('Then resp.end should be called with the data', async () => {
-            const mockResult = [{ test: 'test' }];
+        test('Then resp.end should be called with mockResult', async () => {
+            const mockResult = [{ name: 'robot 1' }];
             (mockModel.find as jest.Mock).mockResolvedValue(mockResult);
-            await controller.getAll(req as Request, resp as Response, next as NextFunction);
+            await robotController.getAll(req as Request, resp as Response, next as NextFunction);
             expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
         });
     });
-    describe('When method getController is called', () => {
-        test('And response is ok, then resp.end should be called with data', async () => {
-            const mockResult = [{ test: 'test' }];
+    describe('When method getById is called', () => {
+        test('If success, then resp.end should be called with mockResult', async () => {
+            const mockResult = [{ name: 'robot 1' }];
             (mockModel.findById as jest.Mock).mockResolvedValue(mockResult);
-            await controller.getById(req as Request, resp as Response, next as NextFunction);
+            await robotController.getById(req as Request, resp as Response, next as NextFunction);
             expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
         });
-        test('And response is not ok, then resp.end should be called without data', async () => {
+        test('If response is null, then resp.end should be called without mockResult', async () => {
             const mockResult = null;
             (mockModel.findById as jest.Mock).mockResolvedValue(mockResult);
-            await controller.getById(req as Request, resp as Response, next as NextFunction);
-            expect(resp.status).toHaveBeenCalledWith(400);
+            await robotController.getById(req as Request, resp as Response, next as NextFunction);
+            expect(resp.status).toHaveBeenCalledWith(404);
             expect(resp.end).toHaveBeenCalledWith('No object found');
         });
     });
-    describe('When method postController is called', () => {
-        test('Then if not error resp.end should be called with data', async () => {
-            const mockResult = [{ test: 'test' }];
+    describe('When method post is called', () => {
+        test('If success, then resp.end should be called with mockResult ', async () => {
+            const mockResult = [{ name: 'robot 1' }];
             (mockModel.create as jest.Mock).mockResolvedValue(mockResult);
-            await controller.post(
+            await robotController.post(
                 req as Request,
                 resp as Response,
                 next as NextFunction
             );
+            expect(resp.status).toHaveBeenCalledWith(201)
             expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
         });
-        test('Then if error function next should be called', async () => {
+        test('If error, then function next should be called with error', async () => {
             const mockResult = null;
             (mockModel.create as jest.Mock).mockRejectedValue(mockResult);
-            await controller.post(
+            await robotController.post(
                 req as Request,
                 resp as Response,
                 next as NextFunction
@@ -71,36 +74,33 @@ describe('Given a instantiated controller DataController', () => {
             expect(next).toHaveBeenCalled();
         });
     });
-    describe('When method patchController is called', () => {
-        test('Then resp.end should be called with data', async () => {
-            const mockResult = [{ test: 'test' }];
+    describe('When patch method is called', () => {
+        test('If success then resp.end should be called with mockResult', async () => {
+            const mockResult = { name: 'robot 1' };
             (mockModel.findByIdAndUpdate as jest.Mock).mockResolvedValue(
                 mockResult
             );
-            await controller.patch(req as Request, resp as Response, next as NextFunction);
+            await robotController.patch(req as Request, resp as Response, next as NextFunction);
+            expect(resp.end).toHaveBeenCalledWith(`Updated data: ${JSON.stringify(mockResult)}`);
+        });
+    });
+    describe('When delete method is called', () => {
+        test('If success, then resp.end should be called with mockResult', async () => {
+            const mockResult = { name: 'robot 1' };
+            (mockModel.findByIdAndDelete as jest.Mock).mockResolvedValue(
+                mockResult
+            );
+            await robotController.delete(req as Request, resp as Response, next as NextFunction);
             expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
         });
-    });
-    describe('When method deleteController is called', () => {
-        test('Then res.status should be called with status', async () => {
-            const mockResult = true;
+        test('If response === null, then resp.end should be called with status Object not found', async () => {
+            const mockResult = null;
             (mockModel.findByIdAndDelete as jest.Mock).mockResolvedValue(
                 mockResult
             );
-            await controller.delete(req as Request, resp as Response, next as NextFunction);
-            expect(resp.end).toHaveBeenCalled();
-            expect(resp.status).toHaveBeenCalledWith(202);
-        });
-    });
-    describe('When method deleteController is called', () => {
-        test('Then res.status should be called with status', async () => {
-            const mockResult = false;
-            (mockModel.findByIdAndDelete as jest.Mock).mockResolvedValue(
-                mockResult
-            );
-            await controller.delete(req as Request, resp as Response, next as NextFunction);
-            expect(resp.end).toHaveBeenCalled();
-            expect(resp.status).toHaveBeenCalledWith(404);
+            await robotController.delete(req as Request, resp as Response, next as NextFunction);
+            expect(resp.status).toHaveBeenCalledWith(400);
+            expect(resp.end).toHaveBeenCalledWith('Object not found');
         });
     });
 });
