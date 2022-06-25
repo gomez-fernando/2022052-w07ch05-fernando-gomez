@@ -5,9 +5,6 @@ import cors from 'cors';
 
 import homeRouter from './routers/home.router.js';
 import { robotRouter } from './routers/robot.router.js';
-// import { taskRouter } from './router/task.js';
-// import { notesRouter } from './router/notes.js';
-// import { bookRouter } from './router/books.js';
 
 export const app = express();
 
@@ -31,8 +28,9 @@ app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
     let status = 500;
     if (error.name === 'ValidationError') {
         status = 406;
-    } else {
-        //
+    } 
+    if(error.name === 'CastError'){
+        status = 400
     }
     resp.status(status);
     const result = {
