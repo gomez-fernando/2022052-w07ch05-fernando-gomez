@@ -27,7 +27,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "prettier"
     ]
   },
   "browserslist": {
@@ -40,6 +41,19 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "jest": {
+      "coveragePathIgnorePatterns": [
+        "<rootDir>/src/utils",
+        "<rootDir>/src/index.tsx",
+        "<rootDir>/src/app"
+      ]
+    }
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0"
+  },
+  "prettier": {
+      "singleQuote": true
   }
 }
