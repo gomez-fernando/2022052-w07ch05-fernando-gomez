@@ -1,3 +1,6 @@
+import { ReactElement } from "react";
+
+/* eslint-disable no-undef */
 export interface iRobot{
     _id?: string;
     name: string;
@@ -10,3 +13,10 @@ export interface iRobot{
 export interface iStore{
     robots: iRobot[];
 }
+
+export interface iRouterItem {
+    path: string;
+    label: string;
+    page: ReactElement;
+}
+

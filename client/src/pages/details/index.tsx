@@ -1,6 +1,6 @@
 
 
-export function DetailsPage(){
+export default function DetailsPage(){
 
     return (
         <div>DetailsPage</div>

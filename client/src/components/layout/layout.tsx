@@ -8,7 +8,6 @@ export function Layout({
 } : {
     children: ReactNode
 }){
-
     return (
         <>
             <Header />
