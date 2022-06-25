@@ -2,21 +2,21 @@
 /* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from "express";
 import { Model } from "mongoose";
-import { nextTick } from "process";
-import { stringify } from "querystring";
-
-export class MongooseController<T> {
+export class RobotController<T> {
     constructor(
         public model: Model<T>,
     ){}
 
-    getAllController = async (req: Request, resp: Response) => {
-        
+    getAll = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-Type', 'application/json');
+        try {
         resp.end(JSON.stringify(await this.model.find()))
+        } catch (error) {
+            next(error)
+        }
     }
 
-    getController = async (req: Request, resp: Response, next: NextFunction) => {
+    getById = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-Type', 'application/json');
         try {
             const result = await this.model.findById(req.params.id);
@@ -33,14 +33,13 @@ export class MongooseController<T> {
       
     }
 
-    postController = async (req: Request,
+    post = async (req: Request,
         resp: Response,
         next: NextFunction
         ) => {
+            resp.setHeader('Content-Type', 'application/json');
             try {
-                
                 const newItem = await this.model.create(req.body);
-                resp.setHeader('Content-Type', 'application/json');
                 resp.status(200);
                 resp.end(JSON.stringify(newItem));
             } catch (error) {
@@ -48,7 +47,7 @@ export class MongooseController<T> {
             }
     };
 
-    patchController = async (req: Request, resp: Response, next: NextFunction) => {
+    patch = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-type', 'application/json');
         
         try {
@@ -59,9 +58,9 @@ export class MongooseController<T> {
         }
     };
 
-    deleteController = async (req: Request, resp: Response, next: NextFunction) => {
+    delete = async (req: Request, resp: Response, next: NextFunction) => {
+        resp.setHeader('Content-type', 'application/json');
         try {
-            resp.setHeader('Content-type', 'application/json');
             const deletedItem = await this.model.findByIdAndDelete(req.params.id);
             if(deletedItem === null){
             resp.status(400);
