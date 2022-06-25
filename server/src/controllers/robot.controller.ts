@@ -9,11 +9,11 @@ export class RobotController<T> {
 
     getAll = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-Type', 'application/json');
-        try {
-        resp.end(JSON.stringify(await this.model.find()))
-        } catch (error) {
-            next(error)
-        }
+        // try {
+        resp.end(JSON.stringify(await this.model.find()));
+        // } catch (error) {
+        //     next(error)
+        // }
     }
 
     getById = async (req: Request, resp: Response, next: NextFunction) => {
@@ -38,9 +38,9 @@ export class RobotController<T> {
         next: NextFunction
         ) => {
             resp.setHeader('Content-Type', 'application/json');
+            resp.status(201);
             try {
                 const newItem = await this.model.create(req.body);
-                resp.status(200);
                 resp.end(JSON.stringify(newItem));
             } catch (error) {
                 next(error)
@@ -49,8 +49,8 @@ export class RobotController<T> {
 
     patch = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-type', 'application/json');
-        
         try {
+            
             const newItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
             resp.end(`Updated data: ${JSON.stringify(req.body)}`);
         } catch (error) {
@@ -61,12 +61,12 @@ export class RobotController<T> {
     delete = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-type', 'application/json');
         try {
+            
             const deletedItem = await this.model.findByIdAndDelete(req.params.id);
             if(deletedItem === null){
-            resp.status(400);
+                resp.status(400);
                 resp.end(`Object not found`);
             } else{
-                resp.status(200);
                 resp.end(JSON.stringify(deletedItem));
             }
             
