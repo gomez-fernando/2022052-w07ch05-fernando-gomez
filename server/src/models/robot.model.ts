@@ -31,7 +31,3 @@ const robotSchema = new mongoose.Schema({
 });
 
 export const Robot = mongoose.model('Robot', robotSchema);
-
-// export const findAll = async () => {
-//     return JSON.stringify(await )
-// }
