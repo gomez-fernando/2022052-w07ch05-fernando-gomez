@@ -9,11 +9,11 @@ export class RobotController<T> {
 
     getAll = async (req: Request, resp: Response, next: NextFunction) => {
         resp.setHeader('Content-Type', 'application/json');
-        // try {
+        try {
         resp.end(JSON.stringify(await this.model.find()));
-        // } catch (error) {
-        //     next(error)
-        // }
+        } catch (error) {
+            next(error)
+        }
     }
 
     getById = async (req: Request, resp: Response, next: NextFunction) => {
