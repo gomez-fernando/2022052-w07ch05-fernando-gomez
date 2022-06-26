@@ -1,16 +1,19 @@
 import { ReactNode } from "react"
+import { iRouterItem } from "../../interfaces/interfaces"
 import { Footer } from "./footer"
 import { Header } from "./header"
 
 
 export function Layout({
-    children
-} : {
-    children: ReactNode
+    children,
+    navOptions,
+}: {
+    children: ReactNode;
+    navOptions: iRouterItem[];
 }){
     return (
         <>
-            <Header />
+            <Header navOptions={navOptions} />
             <main>{children}</main>
             <Footer />
         </>

@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 /* eslint-disable no-undef */
 export interface iRobot{
     _id?: string;
@@ -17,6 +15,6 @@ export interface iStore{
 export interface iRouterItem {
     path: string;
     label: string;
-    page: ReactElement;
+    page: JSX.Element;
 }
 
