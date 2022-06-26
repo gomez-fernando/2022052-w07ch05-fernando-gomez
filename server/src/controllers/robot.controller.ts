@@ -51,7 +51,7 @@ export class RobotController<T> {
         try {
             
             const newItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
-            resp.end(`Updated data: ${JSON.stringify(req.body)}`);
+            resp.end(JSON.stringify(req.body));
         } catch (error) {
             next(error)
         }
@@ -66,7 +66,7 @@ export class RobotController<T> {
                 resp.status(400);
                 resp.end(`Object not found`);
             } else{
-                resp.end(JSON.stringify(deletedItem));
+                resp.end(JSON.stringify(deletedItem.id));
             }
             
         } catch (error) {

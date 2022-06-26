@@ -24,7 +24,6 @@ app.use('/robot', robotRouter);
 app.use((error: Error, req: Request, resp: Response, next: NextFunction) => {
     req;
     next;
-    console.log(error.message);
     let status = 500;
     if (error.name === 'ValidationError') {
         status = 406;
