@@ -5,11 +5,7 @@ import { iStore } from "../../interfaces/interfaces";
 
 export default function editPage(){
     const { id } = useParams();
-    const navigate = useNavigate();
 
-    const goBack = () => navigate(-1);
-    const home = () => navigate(`/`);
-    
 
     const robots = useSelector((store: iStore) => store.robots)
     const robot = robots.find(item => item._id === id);
@@ -31,8 +27,6 @@ export default function editPage(){
                 <h1>No se ha encontrado este robot..</h1>
             )
             }
-            <button onClick={goBack}>Volver</button>
-            <button onClick={home}>Home</button>
         </div>
     )
 }

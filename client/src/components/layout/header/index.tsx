@@ -5,7 +5,8 @@ import { iRouterItem } from "../../../interfaces/interfaces";
 export function Header({navOptions}: {navOptions: iRouterItem[]}){
 
     navOptions = navOptions.filter(item => item.path !== '*' ? item : '' )
-    navOptions = navOptions.filter(item => item.path !== '/details/:id' ? item : '' )
+    navOptions = navOptions.filter(item => item.path !== '/details/:id' ? item : '' );
+    navOptions = navOptions.filter(item => item.path !== '/edit/:id' ? item : '' );
 
     return (
         <header>

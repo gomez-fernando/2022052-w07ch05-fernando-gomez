@@ -7,7 +7,7 @@ export default function DetailsPage(){
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const goBack = () => navigate(-1);
+    // const goBack = () => navigate(-1);
     const edit = () => navigate(`/edit/${id}`);
     
 
@@ -30,7 +30,7 @@ export default function DetailsPage(){
                 <h1>No se ha encontrado este robot..</h1>
             )
             }
-            <button onClick={goBack}>Volver</button>
+            {/* <button onClick={goBack}>Volver</button> */}
             <button onClick={edit}>Editar</button>
         </div>
     )
