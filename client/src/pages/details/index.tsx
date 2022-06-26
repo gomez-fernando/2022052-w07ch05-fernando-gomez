@@ -1,18 +1,26 @@
-import { useSelector } from "react-redux";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { iStore } from "../../interfaces/interfaces";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { iRobot, iStore } from "../../interfaces/interfaces";
+import { ApiRobot } from "../../services/robot/api";
+import * as robotActions from '../../reducers/robot/action.creators'
 
 
 export default function DetailsPage(){
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const apiRobot = new ApiRobot;
+    const robots = useSelector((store: iStore) => store.robots)
+    const robot = robots.find(item => item._id === id);
 
     // const goBack = () => navigate(-1);
     const edit = () => navigate(`/edit/${id}`);
-    
+    const delRobot = async () => {
+        const resp = await apiRobot.deleteOne(robot?._id);
+        dispatch(robotActions.deleteRobotAction(robot as iRobot))
+        navigate(`/`);
+    }
 
-    const robots = useSelector((store: iStore) => store.robots)
-    const robot = robots.find(item => item._id === id);
     return (
         <div className="details-page">
             {robot ? (
@@ -30,8 +38,8 @@ export default function DetailsPage(){
                 <h1>No se ha encontrado este robot..</h1>
             )
             }
-            {/* <button onClick={goBack}>Volver</button> */}
             <button onClick={edit}>Editar</button>
+            <button onClick={delRobot}>Borrar</button>
         </div>
     )
 }

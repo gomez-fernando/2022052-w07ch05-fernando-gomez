@@ -27,15 +27,12 @@ export default function Create(){
         //     element.type === "checkbox" ? element.checked : element.value;
         const value = element.value;
         setFormData({...formData, [element.name]: value});
-        console.log(formData);
     };
 
     const handleSubmit = async (ev: SyntheticEvent) => {
         ev.preventDefault();
-        console.log('Guardando:  ', formData);
         let newRobot: iRobot = {...formData};
         newRobot = await apiRobot.setOne(newRobot)
-        console.log(newRobot);
         dispatch(robotActions.addRobotAction(newRobot));
         // setFormData(initialState);
         navigate(`/details/${newRobot._id}`);
