@@ -51,7 +51,7 @@ export class RobotController<T> {
         try {
             
             const newItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
-            resp.end(`Updated data: ${JSON.stringify(req.body)}`);
+            resp.end(JSON.stringify(req.body));
         } catch (error) {
             next(error)
         }
