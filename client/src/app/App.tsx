@@ -1,21 +1,19 @@
 /* eslint-disable no-undef */
-import React from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from '../components/layout/layout';
 import { iRouterItem } from '../interfaces/interfaces';
-// import { loadRobotsAction } from '../reducers/robots/robot.action.creators';
-// import { RobotHttpStore } from '../services/robot.http.store';
+import { loadRobotsAction } from '../reducers/robot/action.creators';
+import { ApiRobot } from '../services/robot/api';
 
 export function App() {
-    // const dispatcher = useDispatch();
-    // const apiRobots = useMemo(() => new RobotHttpStore(), []);
+    const dispatcher = useDispatch();
+    const apiRobot = useMemo(() => new ApiRobot(), []);
 
-    // useEffect(() => {
-    //     apiRobots
-    //         .getAllRobots()
-    //         .then((robots) => dispatcher(loadRobotsAction(robots)));
-    // }, [apiRobots, dispatcher]);
+    useEffect(() => {
+        apiRobot.getAll().then(robots => dispatcher(loadRobotsAction(robots)));
+    }, [apiRobot, dispatcher]);
 
     const HomePage = React.lazy(() => import('../pages/home'));
     const DetailsPage = React.lazy(() => import('../pages/details'));

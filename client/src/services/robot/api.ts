@@ -1,6 +1,6 @@
 import { iRobot } from "../../interfaces/interfaces";
 
-export class RobotApi {
+export class ApiRobot {
     apiUrl: string;
     constructor(){
         this.apiUrl = 'http://localhost:3400/robot/';
