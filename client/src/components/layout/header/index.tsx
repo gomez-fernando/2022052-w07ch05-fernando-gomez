@@ -11,7 +11,7 @@ export function Header({navOptions}: {navOptions: iRouterItem[]}){
     return (
         <header>
             <hgroup>
-                <h1>Robots by Willy Wonka</h1>
+                <h1>Robots by Willy Wonka 🍫🍫🍫🍪🍪🍪</h1>
             </hgroup>
             <nav>
                 <ul>
