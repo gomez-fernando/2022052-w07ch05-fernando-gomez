@@ -18,12 +18,15 @@ export function App() {
     const HomePage = React.lazy(() => import('../pages/home'));
     const DetailsPage = React.lazy(() => import('../pages/details'));
     const CreatePage = React.lazy(() => import('../pages/create'));
+    const EditPage = React.lazy(() => import('../pages/edit'));
 
     const routerOptions: iRouterItem[] = [
         { path: '/', label: 'Home - Robots', page: <HomePage /> },
         { path: '/details/:id', label: 'Robot', page: <DetailsPage />,
         },
         { path: '/create', label: 'Create Robot', page: <CreatePage />,
+        },
+        { path: '/edit/:id', label: 'Edit Robot', page: <EditPage />,
         },
         { path: '*', label: '', page: <HomePage />,
         },

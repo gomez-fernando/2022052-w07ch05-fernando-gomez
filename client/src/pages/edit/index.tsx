@@ -3,21 +3,22 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { iStore } from "../../interfaces/interfaces";
 
 
-export default function DetailsPage(){
+export default function editPage(){
     const { id } = useParams();
     const navigate = useNavigate();
 
     const goBack = () => navigate(-1);
-    const edit = () => navigate(`/edit/${id}`);
+    const home = () => navigate(`/`);
     
 
     const robots = useSelector((store: iStore) => store.robots)
     const robot = robots.find(item => item._id === id);
     return (
-        <div className="details-page">
+        <div className="edit-page">
             {robot ? (
                 <>
                     <h1>{robot.name}</h1>
+                    <p>Editar: </p>
                     <img src={robot.image} alt={robot.name} />
 
                     <div>
@@ -31,7 +32,7 @@ export default function DetailsPage(){
             )
             }
             <button onClick={goBack}>Volver</button>
-            <button onClick={edit}>Editar</button>
+            <button onClick={home}>Home</button>
         </div>
     )
 }

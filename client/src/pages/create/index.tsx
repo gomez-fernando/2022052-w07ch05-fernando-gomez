@@ -1,8 +1,19 @@
+import { SyntheticEvent } from "react";
 
+const handleSubmit = (ev: SyntheticEvent) => {
+
+}
 
 export default function Create(){
 
     return (
-        <div>Create</div>
+        <>
+            <form onSubmit={handleSubmit}>
+            <div>
+                
+            </div>
+
+        </form>
+    </>
     )
 }
