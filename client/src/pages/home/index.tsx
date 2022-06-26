@@ -5,7 +5,6 @@ import { iStore } from "../../interfaces/interfaces"
 
 export default function HomePage(){
     const robots = useSelector((store: iStore) => store.robots)
-    console.log(robots);
     return (
         <>
             <h1>Our last gen robots</h1>
