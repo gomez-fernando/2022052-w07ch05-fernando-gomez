@@ -17,16 +17,16 @@ const robotSchema = new mongoose.Schema({
         type: String, required: true,
     },
     image : {
-        type: String
+        type: String, required: true
     },
     speed : {
-        type: Number, min: 0, max:10
+        type: Number, min: 0, max:10, required: true
     },
     endurance : {
-        type: Number, min: 0, max:10
+        type: Number, min: 0, max:10, required: true
     },
     creationDate : {
-        type: String
+        type: String, required: true
     }
 });
 

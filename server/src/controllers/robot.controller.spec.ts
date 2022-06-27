@@ -19,7 +19,7 @@ describe('Given the RobotController', () => {
 
     beforeEach(() => {
         req = {
-            params: { id: '1' },
+            params: { _id: '62b877c394f0db40c11be88f' },
             body: { name: 'robot 1' }
         };
         resp = {
@@ -81,17 +81,17 @@ describe('Given the RobotController', () => {
                 mockResult
             );
             await robotController.patch(req as Request, resp as Response, next as NextFunction);
-            expect(resp.end).toHaveBeenCalledWith(`Updated data: ${JSON.stringify(mockResult)}`);
+            expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
         });
     });
     describe('When delete method is called', () => {
         test('If success, then resp.end should be called with mockResult', async () => {
-            const mockResult = { name: 'robot 1' };
+            const mockResult = { _id: '62b877c394f0db40c11be88f' };
             (mockModel.findByIdAndDelete as jest.Mock).mockResolvedValue(
                 mockResult
             );
             await robotController.delete(req as Request, resp as Response, next as NextFunction);
-            expect(resp.end).toHaveBeenCalledWith(JSON.stringify(mockResult));
+            expect(resp.end).toHaveBeenCalledWith(JSON.stringify({ _id: '62b877c394f0db40c11be88f' }));
         });
         test('If response === null, then resp.end should be called with status Object not found', async () => {
             const mockResult = null;

@@ -66,7 +66,7 @@ export class RobotController<T> {
                 resp.status(400);
                 resp.end(`Object not found`);
             } else{
-                resp.end(JSON.stringify(deletedItem.id));
+                resp.end(JSON.stringify({_id: deletedItem._id}));
             }
             
         } catch (error) {
