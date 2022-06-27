@@ -61,6 +61,7 @@ export default function editPage(){
                                 placeholder="Nombre del robot"
                                 value={formData.name}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div>
@@ -70,6 +71,7 @@ export default function editPage(){
                                 placeholder="url de la imagen"
                                 value={formData.image}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div>
@@ -81,6 +83,7 @@ export default function editPage(){
                                 max="10"
                                 value={formData.speed}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div>
@@ -92,6 +95,7 @@ export default function editPage(){
                                 max="10"
                                 value={formData.endurance}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div>
@@ -101,6 +105,7 @@ export default function editPage(){
                                 placeholder="Fecha de creación"
                                 value={formData.creationDate}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
 

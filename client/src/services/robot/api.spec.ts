@@ -12,6 +12,11 @@ const robot1: iRobot = {
     creationDate: '1980',
 };
 
+const wrong = {
+    noway: 23,
+    noway2: true
+};
+
 describe('Given the ApiRobot service', () => {
     describe('When we call getAll method', () => {
         test('Should return a robots array ', async () => {
@@ -41,6 +46,21 @@ describe('Given the ApiRobot service', () => {
             expect(resp).toStrictEqual(robot1);
         });
     });
+    describe('When we call updateOne method with wrong params', () => {
+        test('should return an error', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                json: jest.fn().mockResolvedValue(robot1)
+            });
+            const resp = await api.setOne( wrong as unknown as iRobot);
+            expect(resp).toBe(
+                {
+                    status: 406,
+                    type: "ValidationError",
+                    error: "Robot validation failed: name: Path `name` is required."
+                }
+            );
+        });
+    });
     describe('When we call updateOne method', () => {
         test('should return the updated robot', async () => {
             global.fetch = jest.fn().mockResolvedValue({
@@ -61,3 +81,4 @@ describe('Given the ApiRobot service', () => {
         });
     });
 })
+
